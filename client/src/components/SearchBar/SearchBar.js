@@ -1,27 +1,40 @@
 import React, { useState, useEffect } from 'react'
+import CustomerProfile from '../CustomerProfile/CustomerProfile'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 import axios from 'axios'
 
 const SearchBar = () => {
     const [name, setName] = useState('')
-    const [user, setUser] = useState([])
+    const [isVisible, setisVisible] = useState(false)
+    const [apiData, setApiData] = useState([])
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/customer').then((response) => {
-            setUser(response.data)
-        })
-    }, [])
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.get(`http://localhost:3001/customer/${name}`);
+            console.log(response.data);
+            setApiData(response.data);
+            setisVisible(true)
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    console.log(user)
-
+    const handleChange = (event) => {
+        const words = event.target.value.split(" ");
+        const capitalizedWords = words.map((word) => word.split('').map((c, i) => i === 0 ? c.toUpperCase() : c).join(''));
+        setName(capitalizedWords.join(" "));
+      };
 
     return (
-        <div className='pt-16'>
-            <form className='flex flex-col w-1/3 sm:w-1/2 text-center m-auto'>
+        <div className='pt-2'>
+            <form className='flex flex-col w-1/3 sm:w-1/2 text-center m-auto' onSubmit={handleSubmit}>
                 <label>Search your customer:</label>
-                <input type='text' value={name} className='border-2 border-black rounded-lg text-center' onChange={(e) => setName(e.target.value)} placeholder="'John Smith'" />
+                <input type='text' value={name} className='border-2 border-black rounded-lg text-center' onChange={handleChange} placeholder="'John Smith'" />
+                <button type='submit'>Submit</button>
             </form>
-            <div>
-                
+            <div style={{ display: isVisible ? "block" : "none" }}>
+            {apiData ? <CustomerProfile data={apiData} /> : <LoadingSpinner />}
             </div>
         </div>
     )

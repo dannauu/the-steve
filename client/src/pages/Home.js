@@ -1,12 +1,12 @@
 import React from 'react'
 import SearchBar from '../components/SearchBar/SearchBar';
-import InputForm from '../components/InputForm/InputForm';
+// import InputForm from '../components/InputForm/InputForm';
 
 const Home = () => {
   return (
     <>
       <SearchBar />
-      <InputForm />
+      {/* <InputForm /> */}
     </>
   )
 }

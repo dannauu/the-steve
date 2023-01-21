@@ -20,6 +20,7 @@ const InputForm = () => {
             payOnTime: payOnTime
         }).then((response) => {
             alert("Customer Created")
+            window.location.reload()
         })
     }
     return (
