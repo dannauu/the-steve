@@ -4,6 +4,8 @@ const cors = require('cors')
 const CustomerModel = require('./models/Customers')
 const UserModel = require('./models/User')
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken')
+require("dotenv").config();
 
 
 const PORT = process.env.PORT || 3001;
@@ -48,12 +50,29 @@ app.post('/create-user', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-  UserModel.findOne({ email: req.body.loginEmail, password: req.body.loginPassword })
-    .then(user => {
-      if (!user) return res.status(404).json({ message: "User not found" });
-      res.json(user);
-    })
-    .catch(err => res.status(400).json({ message: "Error Occured" }));
+  // UserModel.findOne({ email: req.body.loginEmail, password: req.body.loginPassword })
+  //   .then(user => {
+  //     if (!user) return res.status(404).json({ message: "User not found" });
+  //     res.json(user);
+  //   })
+  //   .catch(err => res.status(400).json({ message: "Error Occured" }));
+
+  const { loginEmail, loginPassword } = req.body;
+
+  UserModel.findOne({ loginEmail, loginPassword }, (err, user) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error while fetching user' });
+    }
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid Credentials' });
+    }
+    // create a JWT with the user's information
+    const token = jwt.sign({
+      id: user._id,
+      email: user.email
+    }, process.env.SECRET, { expiresIn: '1h' });
+    res.status(200).json({ token });
+  });
 })
 
 app.use(express.urlencoded({ extended: true }));

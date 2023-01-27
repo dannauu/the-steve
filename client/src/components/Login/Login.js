@@ -10,9 +10,8 @@ const Login = () => {
         e.preventDefault();
         axios.post('http://localhost:3001/login', { loginEmail, loginPassword })
             .then(res => {
-                console.log(res.data);
-                localStorage.setItem("token", "token123")
-                window.location.reload()
+                localStorage.setItem("jwt", res.data.token)
+                // window.location.reload()
             })
     }
 

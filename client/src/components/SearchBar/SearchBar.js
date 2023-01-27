@@ -53,8 +53,8 @@ const SearchBar = () => {
     };
 
     const handleClick = () => {
-        if (localStorage.getItem("token")) {
-            console.log("User is signed in.")
+        if (localStorage.getItem("jwt")) {
+            // localStorage.clear()
         } else {
             console.log("User is not signed in.")
             setIsOpen(true)
