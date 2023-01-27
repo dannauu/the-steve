@@ -1,0 +1,25 @@
+{
+  "name": "the-steve",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "scripts": {
+    "develop": "concurrently \"cd server && nodemon server.js\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannauu/the-steve.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannauu/the-steve/issues"
+  },
+  "homepage": "https://github.com/dannauu/the-steve#readme"
+}
