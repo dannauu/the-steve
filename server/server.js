@@ -49,7 +49,7 @@ app.post('/create-user', async (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
-app.post('/login', async (req, res) => {
+app.post('/login', (req, res) => {
   // UserModel.findOne({ email: req.body.loginEmail, password: req.body.loginPassword })
   //   .then(user => {
   //     if (!user) return res.status(404).json({ message: "User not found" });
@@ -71,6 +71,7 @@ app.post('/login', async (req, res) => {
       id: user._id,
       email: user.email
     }, process.env.SECRET, { expiresIn: '1h' });
+
     res.status(200).json({ token });
   });
 })

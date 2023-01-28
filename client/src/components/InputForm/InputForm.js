@@ -39,8 +39,8 @@ const InputForm = () => {
             picky: picky,
             payOnTime: payOnTime
         }).then((response) => {
-            alert("Customer Created")
-            window.location.reload()
+            console.log(response)
+            // window.location.reload()
         })
     }
     return (
