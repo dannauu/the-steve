@@ -9,7 +9,20 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: 'Please enter a valid password',
+    },
+    firstName: {
+        type: String,
+        required: 'Please enter a valid password',
+    },
+    lastName: {
+        type: String,
+        required: 'Please enter a valid password',
+    },
+    companyName: {
+        type: String,
+        required: 'Please enter a valid password',
     }
+
 });
 
 const UserModel = mongoose.model('users', userSchema)

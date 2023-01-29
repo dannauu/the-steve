@@ -31,6 +31,16 @@ app.get('/customer/:name', (req, res) => {
   })
 })
 
+app.get('/all-customers', (req, res) => {
+  CustomerModel.find({}, (err, result) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(result)
+    }
+  })
+})
+
 app.post('/create-customer', async (req, res) => {
   const customer = req.body
   console.log(customer)
@@ -42,7 +52,10 @@ app.post('/create-customer', async (req, res) => {
 app.post('/create-user', async (req, res) => {
   const newUser = new UserModel({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    companyName: req.body.companyName
   })
   await newUser.save()
     .then(user => res.json(user))
@@ -50,13 +63,6 @@ app.post('/create-user', async (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  // UserModel.findOne({ email: req.body.loginEmail, password: req.body.loginPassword })
-  //   .then(user => {
-  //     if (!user) return res.status(404).json({ message: "User not found" });
-  //     res.json(user);
-  //   })
-  //   .catch(err => res.status(400).json({ message: "Error Occured" }));
-
   const { loginEmail, loginPassword } = req.body;
 
   UserModel.findOne({ loginEmail, loginPassword }, (err, user) => {

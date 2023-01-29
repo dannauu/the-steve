@@ -6,8 +6,8 @@ import SearchBar from '../components/SearchBar/SearchBar';
 const Home = () => {
   return (
     <>
-      <LandingMessage />
       <SearchBar />
+      <LandingMessage />
       {/* <InputForm /> */}
     </>
   )

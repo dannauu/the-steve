@@ -3,6 +3,8 @@ import CustomerProfile from '../CustomerProfile/CustomerProfile'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 import axios from 'axios'
 import { FaArrowRight } from 'react-icons/fa'
+import { ImArrowDown } from 'react-icons/im'
+
 
 const SearchBar = () => {
     const [name, setName] = useState('')
@@ -37,9 +39,11 @@ const SearchBar = () => {
 
     return (
         <div className='pt-2'>
+            <h1 className='text-xl italic font-bold text-center'>Type your customer's name here:</h1>
+            <ImArrowDown className='flex m-auto text-3xl mt-1 text-black mb-1' />
             <form className='flex flex-col w-4/5 text-center m-auto' onSubmit={handleSubmit}>
                 <div className='flex '>
-                    <input type='text' value={name} className='border-2 border-black rounded-lg text-center bg-gray-200 w-11/12 mr-1' onChange={handleChange} placeholder="'John Smith'" />
+                    <input type='text' value={name} className='border-2 border-black rounded-lg text-center w-11/12 mr-1' onChange={handleChange} placeholder="'John Smith'" />
                     <button type='submit' className='italic font-semibold rounded-md w-1-12 text-xs'><FaArrowRight className='text-3xl text-green-400 bg-black rounded-md' /></button>
                 </div>
             </form>
